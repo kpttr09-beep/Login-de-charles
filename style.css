@@ -1,0 +1,258 @@
+/* ===========================================================================
+   style.css  —  visual compartilhado pelas telas de login, cadastro e painel
+   Estilo inspirado em tela de login com foto de praia + card translúcido.
+   =========================================================================== */
+
+:root {
+  --cor-tinta:          #14233b;
+  --cor-suave:          #64748b;
+  --cor-primaria:       #2563eb;
+  --cor-primaria-forte: #1d4ed8;
+  --cor-borda:          rgba(255, 255, 255, 0.55);
+  --cor-erro:           #dc2626;
+  --cor-erro-bg:        #fdecec;
+  --cor-ok:             #15803d;
+  --cor-ok-bg:          #e9f7ee;
+  --raio:   16px;
+  --sombra: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background-image: url('_.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  color: #fff;
+  position: relative;
+}
+
+/* ---------------------------------------------------------------------
+   Barra superior (logo + menu hambúrguer)
+   --------------------------------------------------------------------- */
+.barra-topo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px;
+  z-index: 5;
+}
+
+.logo-caixa {
+  background: #fff;
+  color: #14233b;
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: .05em;
+  padding: 10px 18px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.15);
+}
+
+.menu-hamburguer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+}
+.menu-hamburguer span {
+  width: 26px;
+  height: 2px;
+  background: #fff;
+  display: block;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------
+   Cartão central translúcido (glassmorphism)
+   --------------------------------------------------------------------- */
+main.cartao-tela {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.cartao {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: rgba(120, 160, 190, 0.28);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  padding: 40px 34px;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  color: #fff;
+}
+
+.fechar {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 1.2rem;
+  color: rgba(255,255,255,.85);
+  text-decoration: none;
+  line-height: 1;
+}
+.fechar:hover { color: #fff; }
+
+/* Marca antiga dentro do card (não usamos mais, mas mantém compatibilidade) */
+.marca { display: none; }
+
+h1 {
+  font-family: "Sora", system-ui, sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 6px;
+  color: #fff;
+}
+.subtitulo {
+  color: rgba(255,255,255,.85);
+  font-size: .9rem;
+  text-align: center;
+  margin-bottom: 26px;
+}
+
+/* ---------------------------------------------------------------------
+   Campos do formulário (com "ícone" à direita, estilo da print)
+   --------------------------------------------------------------------- */
+.campo { margin-bottom: 16px; }
+
+.campo label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,.85);
+}
+
+.campo-com-icone {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.campo-com-icone input {
+  width: 100%;
+  padding: 13px 46px 13px 16px;
+  font-size: .95rem;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.campo-com-icone input::placeholder { color: rgba(255,255,255,.75); }
+.campo-com-icone input:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.icone-campo {
+  position: absolute;
+  right: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.35);
+  border-radius: 8px;
+  pointer-events: none;
+}
+.icone-campo svg { width: 16px; height: 16px; fill: #fff; }
+
+/* Linha com "Lembrar de mim" + "Esqueceu a senha?" */
+.linha-opcoes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0 22px;
+  font-size: .82rem;
+}
+.lembrar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,.9);
+}
+.lembrar input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #fff;
+}
+.esqueceu {
+  color: rgba(255,255,255,.9);
+  text-decoration: underline;
+}
+.esqueceu:hover { color: #fff; }
+
+/* Botão principal — pílula branca, igual à print */
+.botao {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: .98rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+  background: #fff;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background .15s, transform .1s;
+}
+.botao:hover    { background: #f1f5f9; }
+.botao:active   { transform: scale(.98); }
+.botao:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Link no rodapé do cartão */
+.rodape-link {
+  margin-top: 20px;
+  text-align: center;
+  font-size: .88rem;
+  color: rgba(255,255,255,.85);
+}
+.rodape-link a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* Caixa de mensagem (erro ou sucesso) */
+.mensagem {
+  margin-bottom: 16px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: .85rem;
+  display: none;
+}
+.mensagem.erro    { display: block; background: var(--cor-erro-bg); color: var(--cor-erro); }
+.mensagem.sucesso { display: block; background: var(--cor-ok-bg);   color: var(--cor-ok);   }
+
+/* Caixa de informação do painel (área logada) */
+.painel-info {
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+  font-size: .9rem;
+  color: rgba(255,255,255,.9);
+  word-break: break-all;
+}
+.painel-info strong { color: #fff; }
