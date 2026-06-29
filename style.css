@@ -22,7 +22,8 @@
 html, body { height: 100%; }
 
 body {
-  background-image: url('undo.jpg');
+  background-color: #14233b; /* Garante fundo escuro se a imagem demorar */
+  background-image: url('undo.jpg'); /* Caminho direto, sem o "./" */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
