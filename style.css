@@ -22,7 +22,7 @@
 html, body { height: 100%; }
 
 body {
-  background-image: url('./undo.jpg');
+  background-image: url('undo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
