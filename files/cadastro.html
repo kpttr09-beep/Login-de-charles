@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro — Acesso Seguro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="barra-topo">
+    <div class="logo-caixa">LOGO</div>
+    <div class="menu-hamburguer">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <main class="cartao-tela">
+    <div class="cartao">
+      <a href="index.html" class="fechar" aria-label="Voltar ao login">&times;</a>
+
+      <h1>Criar conta</h1>
+      <p class="subtitulo">Cadastre-se para depois fazer login.</p>
+
+      <div id="mensagem" class="mensagem"></div>
+
+      <form id="formCadastro">
+        <div class="campo">
+          <div class="campo-com-icone">
+            <input type="email" id="email" placeholder="E-mail" autocomplete="email" required>
+            <span class="icone-campo">
+              <svg viewBox="0 0 24 24"><path d="M2 6c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm2 .2V8l8 5 8-5V6.2L12 11 4 6.2Z"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <div class="campo-com-icone">
+            <input type="password" id="senha" placeholder="Senha (mínimo 6 caracteres)" autocomplete="new-password" required>
+            <span class="icone-campo">
+              <svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm-3 8V6a3 3 0 0 1 6 0v3H9Z"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="botao" id="btnCadastrar" style="margin-top:14px;">Cadastrar</button>
+      </form>
+
+      <p class="rodape-link">
+        Já tem conta? <a href="index.html">Fazer login</a>
+      </p>
+    </div>
+  </main>
+
+  <script type="module">
+    import { auth } from "./firebase-config.js";
+    import {
+      createUserWithEmailAndPassword,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+    import { traduzirErro } from "./mensagens.js";
+
+    const form     = document.getElementById("formCadastro");
+    const btn      = document.getElementById("btnCadastrar");
+    const caixaMsg = document.getElementById("mensagem");
+
+    function mostrar(texto, tipo) {
+      caixaMsg.textContent = texto;
+      caixaMsg.className = "mensagem " + tipo;
+    }
+
+    form.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+
+      btn.disabled = true;
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, senha);
+        await signOut(auth);
+        mostrar("Conta criada com sucesso! Redirecionando para o login...", "sucesso");
+        setTimeout(() => { window.location.href = "index.html"; }, 1500);
+      } catch (erro) {
+        mostrar(traduzirErro(erro.code), "erro");
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

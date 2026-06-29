@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel — Acesso Seguro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="barra-topo">
+    <div class="logo-caixa">LOGO</div>
+    <div class="menu-hamburguer">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <main class="cartao-tela">
+    <div class="cartao">
+      <h1>Bem-vindo(a)!</h1>
+      <p class="subtitulo">Você está logado. Esta é uma área protegida.</p>
+
+      <div class="painel-info">
+        Logado como: <strong id="emailUsuario">carregando...</strong>
+      </div>
+
+      <button class="botao" id="btnSair">Sair</button>
+    </div>
+  </main>
+
+
+  <script type="module">
+    import { auth } from "./firebase-config.js";
+    import {
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (usuario) => {
+      if (usuario) {
+        document.getElementById("emailUsuario").textContent = usuario.email;
+      } else {
+        window.location.href = "index.html";
+      }
+    });
+
+    document.getElementById("btnSair").addEventListener("click", async () => {
+      await signOut(auth);
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>
